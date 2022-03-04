@@ -1,0 +1,27 @@
+{
+  "name": "sticky-bin-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/* --reporter spec",
+    "start": "sudo service mongodb start && nodemon --inspect index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-pino-logger": "^6.0.0",
+    "mongoose": "^6.2.4",
+    "nanoid": "^3.3.1",
+    "pino": "^6.11.3",
+    "pino-pretty": "^5.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.2.1"
+  }
+}

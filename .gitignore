@@ -1,0 +1,6 @@
+node_modules/
+nothingToSeeHere.json
+.env
+*.swp
+*.swo
+
