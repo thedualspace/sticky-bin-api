@@ -1,43 +1,42 @@
 // Services
-const { savePaste } = require("../services/pasteService");
+const { savePasteService, readPasteService } = require("../services/pasteService");
 
 
 const createPaste = async (req, res) => {
     try {
         const { content } = req.body;
-        const paste = await savePaste(content);
+        const paste = await savePasteService(content);
 
         return res.status(201).send({
             message: "Successfully created new paste!",
             paste,
         });
     } catch (error) {
+        // Chose not to include the full error for production, but an interesting discovery for dev/debugging below.
+        // As this error object is not serializable, we must use the following approach to send the full error using JSON.
+        // const message = JSON.stringify(error, Object.getOwnPropertyNames(error))
+        //
+        // more info: https://tinyurl.com/593djhar
         return res.status(500).send({
             message: "Error saving new Paste",
-            error,
+            error: error.message,
         });
     }
 }
 
 const readPaste = async (req, res) => {
     try {
-        const payload = req.body;
-        // const pasteURL = createURL();
+        const URL = req.params.uniqueURL
+        const { content } = await readPasteService(URL)
 
-        // const paste = new Paste()
-
-        return res.send({
-            message: "Successfully encrypted data",
-            ok: true,
-            errors: [],
-            // payload: responseData,
+        return res.status(200).send({
+            message: "Successfully found a paste!",
+            content
         });
     } catch (error) {
         return res.status(404).send({
-            message: "Error encrypting data",
-            ok: false,
-            error: error,
-            payload: {},
+            message: "The requested url does not match any paste on record. This link may have expired.",
+            error: error.message
         });
     }
 }

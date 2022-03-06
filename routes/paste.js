@@ -9,7 +9,7 @@ const {
 } = require("../controllers/pasteController");
 
 //Routes
-router.get("/", readPaste);
+router.get("/:uniqueURL", readPaste);
 router.post("/", createPaste);
 
 module.exports = router;

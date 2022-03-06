@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressPino);
 
 // Required Route Files
-const pastesRoutes = require("./routes/pastes");
+const pasteRoutes = require("./routes/paste");
 
 // Routes
-app.use("/pastes", pastesRoutes);
+app.use("/paste", pasteRoutes);
 
 // Connect to Database
 if (process.env.NODE_ENV === "prod") {
