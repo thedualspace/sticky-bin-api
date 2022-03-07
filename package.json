@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive test/ --reporter spec --forbid-only",
-    "start": "sudo service mongodb start && nodemon --inspect index.js"
+    "dev": "sudo service mongodb start && nodemon --inspect index.js"
   },
   "author": "",
   "license": "ISC",
