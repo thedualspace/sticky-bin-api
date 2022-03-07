@@ -8,10 +8,6 @@ const dbConnect = (app, logger) => {
             .connect(config.dbUrl, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                auth: {
-                    user: process.env.DB_USER,
-                    password: process.env.DB_PASS,
-                },
             })
             .then(() => {
                 logger.info(`Connected to MongoDB (${process.env.NODE_ENV}) ...`);

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha --recursive test/ --reporter spec --forbid-only",
     "dev": "sudo service mongodb start && nodemon --inspect index.js"
   },

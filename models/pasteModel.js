@@ -25,7 +25,8 @@ const Paste = mongoose.model('Paste', PasteSchema);
 // 
 // If an index already exists in the DB, remove this and add the updated one.
 // Ensures we always use the latest value from config
-Paste.collection.dropIndex({ createdAt: 1 })
+// Added a catch block to prevent app from crashing if this index does not exist.
+Paste.collection.dropIndex({ createdAt: 1 }).catch()
 PasteSchema.index({ createdAt: 1 }, { expireAfterSeconds });
 
 exports.Paste = Paste; 
