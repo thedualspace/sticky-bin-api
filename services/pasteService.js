@@ -32,6 +32,7 @@ const readPasteService = async (URL) => {
 
 
 module.exports = {
+    generateURL,
     savePasteService,
     readPasteService,
 };
