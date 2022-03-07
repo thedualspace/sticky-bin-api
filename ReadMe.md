@@ -2,6 +2,8 @@
 
 My submission for the Much Better Adventures take-home task.
 
+This implementation uses React for the frontend and Node and MongoDB for the backend. Testing is performed with Chai and Mocha.
+
 ## Online Demo
 
 A working demo can be [seen here](https://sticky-bin.herokuapp.com/).
