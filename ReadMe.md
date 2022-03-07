@@ -1,7 +1,21 @@
+# MBA Submission
 
-# Evervault Submission
+My submission for the Much Better Adventures take-home task.
 
-My submission for the Evervault Take-Home challenge.
+## Online Demo
+
+A working demo can be [seen here](https://sticky-bin.herokuapp.com/).
+
+## Some points of note:
+
+- **Line  Numbers**: Support for multiline snippets is provided by splitting submitted pastes at each newline character (\n). The paste can then be rendered as a numbered list to improve readability when sharing code, the most common use-case for a paste bin. White space is maintained also.
+
+- **Customisation**: Values for URL random string length, and URL character set are assignable in the .env, and the expiry time can be set in the config (please ask for more details). Default values are used if these values are not specified.
+
+- **UI Feedback**: The user is kept informed while services are running using various means. A spinner is shown while the app waits for a confirmation response that the paste has been submitted, a loading message is shown before a requested paste has been retrieved from the server, and an error message is shown if the paste requested has expired or does not exist.
+
+- **Testing**: Some sample unit tests are included using the Mocha and Chai libraries. 
+
 
 ## Installation
 
@@ -10,118 +24,49 @@ Use npm to install required packages.
 ```bash
 npm install
 ```
-**Note: .env.sample must be renamed to .env before starting the API.** 
+
+**Note: .env.sample should be renamed to .env and populated with the required fields before starting the API. A mongo instance is required.**
 
 ## Usage
-To start the API, run the command below. 
+
+To start the API, run the command below.
 
 ```bash
 node index.js
 ```
+
 By default the project will run at http://localhost:3333/
 
 ## Endpoints
-
-### Encryption 
-**/encryption/encrypt**
+**/api/paste** (POST requests)
 
 ```
 //Expects JSON of the form:
 {
-    "first": "Hello",
-    "second": "goodbye",
-    "third": {
-        "inner_one": "Hello",
-        "inner_two": "goodbye"
-    }
+    "content": "Some code!",
 }
 
 // Returns
 {
-    "message": "Successfully encrypted data",
-    "ok": true,
-    "errors": [],
-    "payload": {
-        "first": "U2FsdGVkX1/YKTeKh91KDxRT4lHIk0e2glmt5jej0zI=",
-        "second": "U2FsdGVkX1+WsOmPf2DGQS1RglIrEL2ipmphmr7AjXI=",
-        "third": "U2FsdGVkX18ZO3jSxJ96rAtux7uv1H+0rMiN6ZNgcVP/C3jDTU+NRyN8E4PruFkCRioFkwLA9omhyyo71/kDKA=="
+    "message": "Successfully created new paste!",
+    "paste": {
+        "content": "Some code!",
+        "URL": "RKa7t484",
+        "_id": "622621c8e76679a440c671eb",
+        "createdAt": "2022-03-07T15:16:24.172Z",
+        "updatedAt": "2022-03-07T15:16:24.172Z",
+        "__v": 0
     }
 }
 ```
-
-**/encryption/decrypt**
+**/api/paste/:paste-url** (GET requests)
 
 ```
-//Expects JSON of the form:
-{
-    "first": "U2FsdGVkX1+CFXpwMW6DUw27qjZrzBP43+qCTWSuQqc=",
-    "second": "U2FsdGVkX19wDMjm1NEp0c6IIn/0bFDGEO7EmuLOPHA=",
-    "third": "U2FsdGVkX1+BXSolxRoh96kR9ow8c/dLHvE5toCAFP8a3s0f/HLRQOepdUgxHOKxMd3MmX+UgXRC/6aVgJD94A=="
-}
-
 // Returns
 {
-    "message": "Successfully decrypted data",
-    "ok": true,
-    "errors": [],
-    "payload": {
-        "first": "Hello",
-        "second": "goodbye",
-        "third": {
-            "inner_one": "Hello",
-            "inner_two": "goodbye"
-        }
-    }
-}
-```
-### Verification
-**/verification/sign**
-
-```
-//Expects JSON of the form:
-{
-    "first": "Hello",
-    "second": "goodbye",
-    "third": {
-        "inner_one": "Hello",
-        "inner_two": "goodbye"
-    }
-}
-
-// Returns
-{
-    "message": "Data signature successful",
-    "ok": true,
-    "errors": [],
-    "payload": {
-        "body": {
-            "first": "Hello",
-            "second": "goodbye",
-            "third": {
-                "inner_one": "Hello",
-                "inner_two": "goodbye"
-            }
-        },
-        "signature": "ec82985c3052bb1c72e34c0f01924049ce7840a55038179a5d930410dacee365"
-    }
+    "message": "Successfully found a paste!",
+    "content": "Some code!",
 }
 ```
 
-**/verification/verify**
-
-```
-//Expects JSON of the form:
-{
-    "data": {
-        "first": "U2FsdGVkX1/YKTeKh91KDxRT4lHIk0e2glmt5jej0zI=",
-        "second": "goodbye",
-        "third": "U2FsdGVkX1+BXSolxRoh96kR9ow8c/dLHvE5toCAFP8a3s0f/HLRQOepdUgxHOKxMd3MmX+UgXRC/6aVgJD94A=="
-    },
-    "signature": "ec82985c3052bb1c72e34c0f01924049ce7840a55038179a5d930410dacee365"
-}
-
-// Returns status 204 if successful, or status 400 if not.
-
-```
-
-
+For both GET and POST requests, if a request is unsuccessful an error property will be returned in the response with an associated error message.

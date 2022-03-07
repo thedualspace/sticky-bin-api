@@ -23,7 +23,7 @@ app.use(expressPino);
 const pasteRoutes = require("./routes/paste");
 
 // Routes
-app.use("/paste", pasteRoutes);
+app.use("/api/paste", pasteRoutes);
 
 // Connect to Database
 dbConnect(app, logger);
