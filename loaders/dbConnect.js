@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const config = require("../config")
 
 const dbConnect = (app, logger) => {
-    if (process.env.NODE_ENV === "prod") {
+    if (process.env.NODE_ENV === "production") {
         mongoose
             .connect(config.dbUrl, {
                 useNewUrlParser: true,
